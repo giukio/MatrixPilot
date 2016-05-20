@@ -23,7 +23,7 @@
 // UDB LOGO Waypoint handling
 
 // Move on to the next waypoint when getting within this distance of the current goal (in meters)
-#define WAYPOINT_RADIUS         25
+#define WAYPOINT_RADIUS         10
 
 // Origin Location
 // When using relative waypoints, the default is to interpret those waypoints as relative to the
@@ -270,26 +270,30 @@
 // Main Flight Plan
 //
 // Fly a 100m square at an altitude of 100m, beginning above the origin, pointing North
-
-#define SQUARE 1
-
 const struct logoInstructionDef instructions[] = {
+    // Use cross-tracking for navigation
+	FLAG_ON(F_CROSS_TRACK)
+ 	// Set height to 100m
+    SET_ALT(50)
 
-	SET_ALT(100)
-
-	// Go Home and point North
+    // Fly to initial approach fix
+	PEN_UP
 	HOME
+	SET_ANGLE(118)
+	BK(150)
+	PEN_DOWN
 
-	REPEAT_FOREVER
-		DO_ARG(SQUARE, 100)
-	END
-
-	TO (SQUARE)
-		REPEAT(4)
-			FD_PARAM
-			RT(90)
-		END
-	END
+    // Fly towards home, Heading North
+    HOME
+    // Start a circle tangent to heading 118
+    SET_ANGLE(118)
+    REPEAT_FOREVER
+        REPEAT(36)
+             LT(10)
+             FD(20)  // 20 should be 115m radius
+        END
+    END     
+    END     // End of LOGO program
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -304,9 +308,11 @@ const struct logoInstructionDef rtlInstructions[] = {
 
 	// Turn off engine for RTL
 	// Move this line down below the HOME to return home with power before circling unpowered.
-	FLAG_ON(F_LAND)
-
-	// Fly home
+//	FLAG_ON(F_LAND)
+//    SET_SPEED(10)
+    SET_ALT(50)
+	
+    // Fly home
 	HOME
 
 	// Once we arrive home, aim the turtle in the
@@ -317,10 +323,10 @@ const struct logoInstructionDef rtlInstructions[] = {
 		// Fly a circle (36-point regular polygon)
 		REPEAT(36)
 			RT(10)
-			FD(8)
+			FD(5)   // 5 should be 28m radius
 		END
 	END
-	
+    END     // End of LOGO program	
 };
 
 
