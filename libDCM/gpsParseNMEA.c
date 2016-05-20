@@ -106,7 +106,7 @@ void (*msg_parse)(uint8_t gpschar) = &msg_start;
 //const char set_BAUD_38400[]     = "$PMTK251,38400*27\r\n";
 //const char set_BAUD_57600[]     = "$PMTK251,57600*2C\r\n";
 //const char set_BAUD_115200[]    = "$PMTK251,115200*1F\r\n";
-//static const char set_FIX_1Hz[] = "$PMTK220,1000*1F\r\n";
+static const char set_FIX_1Hz[] = "$PMTK220,1000*1F\r\n";
 //const char set_FIX_2Hz[]        = "$PMTK220,500*2B\r\n";
 //const char set_FIX_3Hz[]        = "$PMTK220,333*2D\r\n";
 //const char set_FIX_4Hz[]        = "$PMTK220,250*29\r\n";
@@ -154,7 +154,7 @@ void gps_startup_sequence(int16_t gpscount)
 	}
 	else if (gpscount == 50)
 	{
-//		gpsoutline(set_FIX_1Hz);
+		gpsoutline(set_FIX_1Hz);
 	}
 	else if (gpscount == 20)
 	{
