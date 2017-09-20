@@ -59,13 +59,13 @@
 //    AIRFRAME_HELI             Not currently supported
 //    AIRFRAME_QUAD             Under development
 // (Note that although AIRFRAME_HELI is also recognized, the code for this airframe type is not ready.)
-#define AIRFRAME_TYPE                       AIRFRAME_STANDARD
+#define AIRFRAME_TYPE                       AIRFRAME_DELTA
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // Set this value to your GPS type.  (Set to GPS_STD, GPS_UBX_2HZ, GPS_UBX_4HZ, GPS_MTEK, GPS_NMEA, or GPS_NONE)
-#define GPS_TYPE                            GPS_STD
-//#define DEFAULT_GPS_BAUD                    57600   // added for GPS_NMEA support
+#define GPS_TYPE                            GPS_NMEA
+#define DEFAULT_GPS_BAUD                    57600   // added for GPS_NMEA support
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -76,13 +76,13 @@
 #define ROLL_STABILIZATION_AILERONS         1
 #define ROLL_STABILIZATION_RUDDER           0
 #define PITCH_STABILIZATION                 1
-#define YAW_STABILIZATION_RUDDER            1
+#define YAW_STABILIZATION_RUDDER            0
 #define YAW_STABILIZATION_AILERON           0
 
 // Aileron and Rudder Navigation
 // Set either of these to 1 to enable helical turn control for navigation.
 #define AILERON_NAVIGATION                  1
-#define RUDDER_NAVIGATION                   1
+#define RUDDER_NAVIGATION                   0
 
 // Cross track margin, in meters
 // This is used when the cross track option is attached to a waypoint
@@ -118,8 +118,8 @@
 // If you define SPEED_CONTROL to be 1, MatrixPilot will take air speed into account
 // in the altitude controls, and will trim the throttle and pitch to maintain air speed.
 // Define DESIRED_SPEED to be the air speed that you want, in meters/second.
-#define SPEED_CONTROL                       0
-#define DESIRED_SPEED                       10.0    // meters/second
+#define SPEED_CONTROL                       1
+#define DESIRED_SPEED                       9.5  /*8.0*/  // meters/second
 
 // Inverted flight
 // Set these to 1 to enable stabilization of inverted flight in stabilized and/or waypoint modes.
@@ -150,7 +150,7 @@
 #define BAROMETER_ALTITUDE                  0
 
 // Set your takeoff/launch/initialisation altitude in meters.
-#define LAUNCH_ALTITUDE                     300
+#define LAUNCH_ALTITUDE                     30
 
 
 // Racing Mode
@@ -185,8 +185,8 @@
 // PPM_NUMBER_OF_CHANNELS is the number of channels sent on the PWM signal.  This is
 // often different from the NUM_INPUTS value below, and should usually be left at 8.
 //
-#define USE_PPM_INPUT                       0
-#define PPM_NUMBER_OF_CHANNELS              8
+#define USE_PPM_INPUT                       1
+#define PPM_NUMBER_OF_CHANNELS              6
 #define PPM_SIGNAL_INVERTED                 0
 #define PPM_ALT_OUTPUT_PINS                 0
 
@@ -201,7 +201,7 @@
 // If using PWM inputs (parallel Rx connections), set to the number of cables connected, 1-8
 // If using PPM inputs (serial Rx connection), set to the number of Rx channels, up to PPM_NUMBER_OF_CHANNELS
 // If using LRS library (integrated SPI tranceiver), set to the number of Rx channels, up to 16
-#define NUM_INPUTS                          5
+#define NUM_INPUTS                          6
 
 // Channel numbers for each input.
 // Use as is, or edit to match your setup.
@@ -210,8 +210,8 @@
 #define THROTTLE_INPUT_CHANNEL              CHANNEL_3
 #define AILERON_INPUT_CHANNEL               CHANNEL_1
 #define ELEVATOR_INPUT_CHANNEL              CHANNEL_2
-#define RUDDER_INPUT_CHANNEL                CHANNEL_5
-#define MODE_SWITCH_INPUT_CHANNEL           CHANNEL_4
+#define RUDDER_INPUT_CHANNEL                CHANNEL_4
+#define MODE_SWITCH_INPUT_CHANNEL           CHANNEL_5
 #define CAMERA_PITCH_INPUT_CHANNEL          CHANNEL_UNUSED
 #define CAMERA_YAW_INPUT_CHANNEL            CHANNEL_UNUSED
 #define CAMERA_MODE_INPUT_CHANNEL           CHANNEL_UNUSED
@@ -257,7 +257,7 @@
 // Servo Reversing Configuration
 // For any of these that are set to 1, that servo will be sent reversed controls.
 // Note that your servo reversing settings here should match what you set on your transmitter.
-#define AILERON_CHANNEL_REVERSED            0
+#define AILERON_CHANNEL_REVERSED            1
 #define ELEVATOR_CHANNEL_REVERSED           0
 #define RUDDER_CHANNEL_REVERSED             0
 #define AILERON_SECONDARY_CHANNEL_REVERSED  0
@@ -266,7 +266,7 @@
 #define CAMERA_YAW_CHANNEL_REVERSED         0
 
 // Set this to 1 if you need to switch the left and right elevon or vtail surfaces
-#define ELEVON_VTAIL_SURFACES_REVERSED      0
+#define ELEVON_VTAIL_SURFACES_REVERSED      1
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -302,7 +302,7 @@
 // FAILSAFE_INPUT_MIN and _MAX define the range within which we consider the radio on.
 // Normal signals should fall within about 2000 - 4000.
 #define FAILSAFE_INPUT_CHANNEL              THROTTLE_INPUT_CHANNEL
-#define FAILSAFE_INPUT_MIN                  1500
+#define FAILSAFE_INPUT_MIN                  1900
 #define FAILSAFE_INPUT_MAX                  4500
 
 // FAILSAFE_TYPE controls the UDB's behavior when in failsafe mode due to loss of transmitter
@@ -343,12 +343,12 @@
 // SERIAL_UDB_MAG outputs the automatically calculated offsets and raw magnetometer data.
 // Note that SERIAL_MAVLINK defaults to using a baud rate of 57600 baud (other formats default to 19200)
 
-#define SERIAL_OUTPUT_FORMAT                SERIAL_NONE
+#define SERIAL_OUTPUT_FORMAT                SERIAL_MAVLINK
 
 ////////////////////////////////////////////////////////////////////////////////
 // Serial Output BAUD rate for either standard telemetry streams or MAVLink
 //  19200, 38400, 57600, 115200, 230400, 460800, 921600 // yes, it really will work at this rate
-//#define SERIAL_BAUDRATE                     19200
+#define SERIAL_BAUDRATE                     57600
 
 
 // NUM_ANALOG_INPUTS:
@@ -377,19 +377,19 @@
 // to match your Receiver's RSSI format.  Note that some receivers use a higher voltage to
 // represent a lower signal strength, so you may need to set MIN higher than MAX.
 
-#define ANALOG_CURRENT_INPUT_CHANNEL        CHANNEL_UNUSED
-#define ANALOG_VOLTAGE_INPUT_CHANNEL        CHANNEL_UNUSED
-#define ANALOG_RSSI_INPUT_CHANNEL           CHANNEL_UNUSED
+#define ANALOG_CURRENT_INPUT_CHANNEL        3
+#define ANALOG_VOLTAGE_INPUT_CHANNEL        4
+#define ANALOG_RSSI_INPUT_CHANNEL           1
 
-#define MAX_CURRENT                         900 // 90.0 Amps max for the sensor from SparkFun (in tenths of Amps)
-#define CURRENT_SENSOR_OFFSET               10  // Add 1.0 Amp to whatever value we sense
+#define MAX_CURRENT                         358 // 90.0 Amps max for the sensor from SparkFun (in tenths of Amps)
+#define CURRENT_SENSOR_OFFSET               -1  // Add 1.0 Amp to whatever value we sense
 
-#define MAX_VOLTAGE                         543 // 54.3 Volts max for the sensor from SparkFun (in tenths of Volts)
-#define VOLTAGE_SENSOR_OFFSET               0   // Add 0.0 Volts to whatever value we sense
+#define MAX_VOLTAGE                         158.26 // 54.3 Volts max for the sensor from SparkFun (in tenths of Volts)
+#define VOLTAGE_SENSOR_OFFSET               1   // Add 0.0 Volts to whatever value we sense
 
 // RSSI - RC Receiver signal strength
-#define RSSI_MIN_SIGNAL_VOLTAGE             0.5     // Voltage when RSSI should show 0%
-#define RSSI_MAX_SIGNAL_VOLTAGE             3.3     // Voltage when RSSI should show 100%
+#define RSSI_MIN_SIGNAL_VOLTAGE             1.35     // Voltage when RSSI should show 0%
+#define RSSI_MAX_SIGNAL_VOLTAGE             3.16     // Voltage when RSSI should show 100%
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -479,7 +479,7 @@
 // use it only if there is no rudder.
 // YAWKD_AILERON is the derivative feedback gain for ailerons in response to yaw rotation.
 // use it only if there is no rudder.
-#define ROLLKP                              0.20
+#define ROLLKP                              0.25
 #define ROLLKD                              0.05
 #define YAWKP_AILERON                       0.00
 #define YAWKD_AILERON                       0.00
@@ -488,7 +488,7 @@
 // PITCHGAIN is the pitch stabilization gain, typically around 0.125
 // PITCHKD feedback gain for pitch damping, around 0.0625
 // ELEVATOR_BOOST is the additional gain multiplier for the manually commanded elevator deflection
-#define PITCHGAIN                           0.30
+#define PITCHGAIN                           0.10
 #define PITCHKD                             0.00
 #define ELEVATOR_BOOST                      0.50
 
@@ -504,11 +504,11 @@
 // Note: ELEVATOR_TRIM_INVERTED is usually negative, with typical values in the -0.5 to -1.0 range.
 
 // The following are the values for HILSIM EasyStar2:
-#define CRUISE_SPEED                      ( 12.0 )
-#define ANGLE_OF_ATTACK_NORMAL            ( -0.8 )
-#define ANGLE_OF_ATTACK_INVERTED          ( -7.2 )
-#define ELEVATOR_TRIM_NORMAL              ( -0.03 )
-#define ELEVATOR_TRIM_INVERTED            ( -0.67 )
+#define CRUISE_SPEED                      ( 8.0 )      /*8.0*/
+#define ANGLE_OF_ATTACK_NORMAL            ( 6.0 )      /*8.0*/
+#define ANGLE_OF_ATTACK_INVERTED          ( -2.5 )     /*-1.7*/
+#define ELEVATOR_TRIM_NORMAL              ( 0.01 )
+#define ELEVATOR_TRIM_INVERTED            ( 0.0 )
 
 // Rudder/Yaw Control Gains
 // YAWKP_RUDDER is the proportional feedback gain for rudder control of yaw orientation.
@@ -625,21 +625,21 @@
 // These settings are only used when Altitude Hold is enabled above.
 
 // Min and Max target heights in meters.  These only apply to stabilized mode.
-#define HEIGHT_TARGET_MIN                   25.0
+#define HEIGHT_TARGET_MIN                   10.0
 #define HEIGHT_TARGET_MAX                   100.0
 
 // The range of altitude within which to linearly vary the throttle
 // and pitch to maintain altitude.  A bigger value makes altitude hold
 // smoother, and is suggested for very fast planes.
-#define HEIGHT_MARGIN                       10
+#define HEIGHT_MARGIN                       15      /*10*/
 
 // Use ALT_HOLD_THROTTLE_MAX when below HEIGHT_MARGIN of the target height.
 // Interpolate between ALT_HOLD_THROTTLE_MAX and ALT_HOLD_THROTTLE_MIN
 // when within HEIGHT_MARGIN of the target height.
 // Use ALT_HOLD_THROTTLE_MIN when above HEIGHT_MARGIN of the target height.
 // Throttle values are from 0.0 - 1.0.
-#define ALT_HOLD_THROTTLE_MIN               0.35
-#define ALT_HOLD_THROTTLE_MAX               1.0
+#define ALT_HOLD_THROTTLE_MIN               0.1     /*0.1*/
+#define ALT_HOLD_THROTTLE_MAX               0.6     /*0.8*/
 
 // Use ALT_HOLD_PITCH_MAX when below HEIGHT_MARGIN of the target height.
 // Interpolate between ALT_HOLD_PITCH_MAX and ALT_HOLD_PITCH_MIN when
@@ -648,7 +648,7 @@
 // Pitch values are in degrees.  Negative values pitch the plane down.
 #define ALT_HOLD_PITCH_MIN                 -15.0
 #define ALT_HOLD_PITCH_MAX                  15.0
-#define ALT_HOLD_PITCH_HIGH                -15.0
+#define ALT_HOLD_PITCH_HIGH                  1.0
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -678,7 +678,7 @@
 // Set this to either FP_WAYPOINTS or FP_LOGO
 // The Waypoint definitions and options are located in the waypoints.h file.
 // The Logo flight plan definitions and options are located in the flightplan-logo.h file.
-#define FLIGHT_PLAN_TYPE                    FP_WAYPOINTS
+#define FLIGHT_PLAN_TYPE                    FP_LOGO
 
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -815,3 +815,12 @@
 #ifndef USE_MSD
 #define USE_MSD                             0
 #endif
+
+
+#define CUSTOM_OFFSETS
+#define XACCEL_OFFSET   ( 1247 )
+#define YACCEL_OFFSET   ( 269 )
+#define ZACCEL_OFFSET   ( -1468 )
+#define XRATE_OFFSET    ( -6145 )
+#define YRATE_OFFSET    ( -6099 )
+#define ZRATE_OFFSET    ( -6543 )

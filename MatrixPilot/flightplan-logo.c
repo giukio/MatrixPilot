@@ -934,10 +934,10 @@ static boolean process_one_instruction(struct logoInstructionDef instr)
 			switch (instr.subcmd)
 			{
 				case 0: // Increase Speed
-					desiredSpeed += instr.arg * 10;
+					desiredSpeed += instr.arg /* * 10*/;
 					break;
 				case 1: // Set Speed
-					desiredSpeed = instr.arg * 10;
+					desiredSpeed = instr.arg /* * 10*/;
 					break;
 			}
 			if (desiredSpeed < 0) desiredSpeed = 0;
